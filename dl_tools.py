@@ -4,7 +4,8 @@
 
 #########  DESCRIPTION  #########
 
-# dl_tools : Easy forensic tools downloader
+
+# dl_tools : Easy forensic tools downloader (Windows)
 
 
 #########  RESSOURCES  #########
@@ -13,6 +14,10 @@
 # https://pythonprogramming.net/parse-website-using-regular-expressions-urllib/
 # https://realpython.com/read-write-files-python/#buffered-binary-file-types
 # https://treyhunner.com/2018/12/why-you-should-be-using-pathlib/
+# https://medium.com/@ageitgey/python-3-quick-tip-the-easy-way-to-deal-with-file-paths-on-windows-mac-and-linux-11a072b58d5f
+# http://zetcode.com/python/pathlib/
+# https://pbpython.com/pathlib-intro.html
+# https://docs.python.org/fr/3.8/library/pathlib.html
 
 
 #########  IMPORTS  #########
@@ -24,9 +29,9 @@ import urllib.request
 import re
 import shutil
 import zipfile
-import stat
 import ssl
 import pathlib
+import time
 
 
 #########  INIT  #########
@@ -34,9 +39,10 @@ import pathlib
 
 ## variables
 
-script_folder = os.path.dirname(os.path.abspath(__file__))
-tools_folder = script_folder + "\\tools"
-tools_list = script_folder + "\\tools_list.csv" 
+script_folder = pathlib.Path.cwd()
+tools_folder = script_folder / "tools"
+tools_list = script_folder / "tools_list.csv"
+
 
 ## checking files
 
@@ -46,13 +52,14 @@ def redo_with_write(redo_func, path, err):
     # Arguments: the function that failed, the path 
     # it failed on, and the error that occurred.
    
-    os.chmod(path, stat.S_IWRITE)
+    path.chmod(S_IWRITE)
+    time.sleep(1)
     redo_func(path)
       
-if not os.path.exists(tools_folder):
-    os.makedirs(tools_folder)
+if not (tools_folder).exists():    
+    (tools_folder).mkdir()
 
-if not os.path.isfile(tools_list):
+if not (tools_list).is_file():    
     print("Error - File 'tools_list.csv' not found !")
    
     
@@ -81,10 +88,10 @@ class Tool_To_Be_Downloaded():
         self.category = category
         self.dl_url = dl_url
         
-        self.filename = os.path.basename(dl_url)
-        self.tool_folder = tools_folder + "\\" + self.name
-        self.destination_file = self.tool_folder + "\\" + self.filename
-
+        self.filename = (pathlib.Path(dl_url)).name
+        self.tool_folder = tools_folder / self.name
+        self.destination_file = self.tool_folder / self.filename
+        
 
     def download_tool(self):
         """ Downloading the tool in destination folder"""
@@ -96,10 +103,10 @@ class Tool_To_Be_Downloaded():
         
         # deleting/creating tool folder :
         
-        if os.path.exists(self.tool_folder):
+        if (self.tool_folder).exists():
             shutil.rmtree(self.tool_folder,onerror=redo_with_write)
         
-        os.makedirs(self.tool_folder)
+        (self.tool_folder).mkdir()
 
         print("\tDownloading...")
 
@@ -130,15 +137,15 @@ class Tool_To_Be_Downloaded():
                         release_files = re.findall(r'zipball_url":"(https://api.github.com/repos/[^"]+/zipball/[^"]+)"',str(resp_data))
                     
                     for release_file in release_files:
-                        release_file_name = os.path.basename(release_file)
+                        release_file_name = (pathlib.Path(release_file)).name
                         
                         # Releases without archive name :
                         
-                        if not release_file_name.endswith(".zip"):
-                            release_destination_file = self.tool_folder + "\\" + release_file_name + ".zip"
+                        if not release_file_name.endswith(".zip"):                 
+                            release_destination_file = self.tool_folder / release_file_name / ".zip"
                         else:
-                            release_destination_file = self.tool_folder + "\\" + release_file_name
-                        
+                            release_destination_file = self.tool_folder / release_file_name
+                            
                         try:
                             urllib.request.urlretrieve(release_file,release_destination_file)
                         except Exception as error:
@@ -155,22 +162,24 @@ class Tool_To_Be_Downloaded():
             
             elif re.match("^.*/.*\?.*=.*$|^.*package.Malzilla%20",self.dl_url,re.IGNORECASE):
                                
-                self.destination_file = self.tool_folder + "\\" + self.name
+                self.destination_file = self.tool_folder / self.name
                 
                 try:                      
                     urllib.request.urlretrieve(self.dl_url,self.destination_file)
                     
-                    if os.path.exists(self.destination_file):
+                    if (self.destination_file).exists():
                         with open(self.destination_file,'rb') as destination_file_hdl:
                             destination_file_header = destination_file_hdl.read(10)
                         
                         destination_file_hdl.close()
 
                         if re.match(b"^MZ.*",destination_file_header):
-                            os.rename(self.destination_file, self.destination_file + ".exe")
+#                            os.rename(self.destination_file, self.destination_file + ".exe")
+                            (self.destination_file).rename(self.destination_file + ".exe")
                         
                         elif re.match(b"^PK.*",destination_file_header):
-                            os.rename(self.destination_file, self.destination_file + ".zip")
+#                            os.rename(self.destination_file, self.destination_file + ".zip")
+                            (self.destination_file).rename(self.destination_file + ".zip")
 
                 except Exception as error:
                     print("Error - Error downloading " + str(self.dl_url) + " : ")
@@ -194,29 +203,22 @@ class Tool_To_Be_Downloaded():
     def unzip(self):
         """Uncompressing downloaded archives """
         
-        zip_files = []
-        for r, d, f in os.walk(self.tool_folder):
-            for file in f:
-                if '.zip' in file:
-                    
-                    zip_files.append(os.path.join(r, file))
-        
-                    print("\tExtracting...")
-        
-                    for z in zip_files:
-                        if os.path.isfile(z):
-                            extract_folder = self.tool_folder + "\\" + str(os.path.splitext(os.path.basename(z))[0])
-                
-                            try:
-                                with zipfile.ZipFile(z, 'r') as zip_archive:
-                                    zip_archive.extractall(extract_folder)
-                            except Exception as error:
-                                print("Error - Error unzipping " + str(z) + " :" )
-                                print(str(error))
-                        else:
-                            print("Error - Error unzipping : file " + str(z) + " not found !" )
+        zip_files = (self.tool_folder).glob('*.zip')
 
-         
+        for zip in zip_files:
+            if (zip).is_file():
+                print("\tExtracting...")
+                try:
+                    with zipfile.ZipFile(zip, 'r') as zip_archive:
+                        zip_archive.extractall(self.tool_folder)
+
+                except Exception as error:
+                    print("Error - Error unzipping " + str(zip) + " :" )
+                    print(str(error))
+            else:
+                print("Error - Error unzipping : file " + str(zip) + " not found !" )
+
+
 
 #########  FUNCTIONS  #########
 
