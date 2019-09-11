@@ -4,16 +4,16 @@
 
 #########  DESCRIPTION  #########
 
+# dl_tools : Easy forensic tools downloader
+
 
 #########  RESSOURCES  #########
 
 
 # https://pythonprogramming.net/parse-website-using-regular-expressions-urllib/
-# https://tutorials.technology/tutorials/guess-mime-type-with-python.html
 # https://realpython.com/read-write-files-python/#buffered-binary-file-types
+# https://treyhunner.com/2018/12/why-you-should-be-using-pathlib/
 
-# tools : zimmerman, mitec; harlan carvey, vss carver, wmi,  
-# https://blog.didierstevens.com/my-software/
 
 #########  IMPORTS  #########
 
@@ -26,6 +26,7 @@ import shutil
 import zipfile
 import stat
 import ssl
+import pathlib
 
 
 #########  INIT  #########
@@ -39,28 +40,21 @@ tools_list = script_folder + "\\tools_list.csv"
 
 ## checking files
 
-# temp
 
 def redo_with_write(redo_func, path, err):
     """ Change file rights (readonly) so rmtree can work"""
-    # arguments: the function that failed, the path 
+    # Arguments: the function that failed, the path 
     # it failed on, and the error that occurred.
    
     os.chmod(path, stat.S_IWRITE)
     redo_func(path)
-    
-    
-#if os.path.exists(tools_folder):  
-#    shutil.rmtree(tools_folder,onerror=redo_with_write)
-    
+      
 if not os.path.exists(tools_folder):
     os.makedirs(tools_folder)
 
 if not os.path.isfile(tools_list):
     print("Error - File 'tools_list.csv' not found !")
-
-## handle
-    
+   
     
 #########  ARGUMENTS #########
 
@@ -69,9 +63,6 @@ parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epil
 parser.add_argument("-t", "--tool", help="Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded", required=True)
 parser.add_argument("-p", "--proxy", help="Proxy informations : PROXY:PORT")
 args=parser.parse_args()
-
-
-# add proxy compatibility
 
 
 #########  VARIABLES  #########
@@ -141,7 +132,7 @@ class Tool_To_Be_Downloaded():
                     for release_file in release_files:
                         release_file_name = os.path.basename(release_file)
                         
-                        # cas des release ne contenant pas de nom d'archive :
+                        # Releases without archive name :
                         
                         if not release_file_name.endswith(".zip"):
                             release_destination_file = self.tool_folder + "\\" + release_file_name + ".zip"

@@ -156,3 +156,9 @@ yaguard;ioc;novirusthanks;https://downloads.novirusthanks.org/files/yaguard.zip
 Resource_Hacker;file_analysis;angus_johnson;http://www.angusj.com/resourcehacker/resource_hacker.zip
 process_hacker;system_activity;Wen_Jia_Liu ;https://github.com/processhacker/processhacker/archive/master.zip
 process_hacker_release;system_activity;Wen_Jia_Liu ;https://api.github.com/repos/processhacker/processhacker/releases/latest
+appid_calc;execution;hexacorn;http://www.hexacorn.com/tools/appid_calc.pl
+TimeCraver_;carving;hexacorn;http://www.hexacorn.com/tools/TimeCraver.pl
+find_times;carving;504ensicsLabs;https://github.com/504ensicsLabs/find_times/archive/master.zip
+HAM;malware;hexacorn;http://hexacorn.com/download.php?f=ham.exe
+DeXRAY;file_analysis;hexacorn;http://hexacorn.com/download.php?f=DeXRAY.pl
+Pecluster;malware;hexacorn;http://hexacorn.com/download.php?f=PECluester.pl
