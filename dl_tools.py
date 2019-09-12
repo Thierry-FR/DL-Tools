@@ -53,7 +53,7 @@ def redo_with_write(redo_func, path, err):
     # it failed on, and the error that occurred.
    
     path.chmod(S_IWRITE)
-    time.sleep(1)
+    time.sleep(2)
     redo_func(path)
       
 if not (tools_folder).exists():    
@@ -93,6 +93,9 @@ class Tool_To_Be_Downloaded():
         self.destination_file = self.tool_folder / self.filename
         
 
+## Download
+
+
     def download_tool(self):
         """ Downloading the tool in destination folder"""
         
@@ -121,7 +124,7 @@ class Tool_To_Be_Downloaded():
                 urllib.request.install_opener(opener)
             
             
-            # Download release files :
+            # Download github latest release (with latest tag) :
             
             
             if re.match("https://api.github.com/repos/.*/releases/latest",self.dl_url,re.IGNORECASE):
@@ -134,15 +137,19 @@ class Tool_To_Be_Downloaded():
                     release_files = re.findall(r'browser_download_url":"(https://github.com/[^"]+\.zip)',str(resp_data))
                     
                     if not release_files:
+#                        print("in zipball")
                         release_files = re.findall(r'zipball_url":"(https://api.github.com/repos/[^"]+/zipball/[^"]+)"',str(resp_data))
                     
                     for release_file in release_files:
+#                        print(release_file)
                         release_file_name = (pathlib.Path(release_file)).name
+#                        print(release_file_name)
                         
                         # Releases without archive name :
                         
-                        if not release_file_name.endswith(".zip"):                 
-                            release_destination_file = self.tool_folder / release_file_name / ".zip"
+                        if not release_file_name.endswith(".zip"):
+                            release_file_name = release_file_name + ".zip"
+                            release_destination_file = self.tool_folder / release_file_name
                         else:
                             release_destination_file = self.tool_folder / release_file_name
                             
@@ -155,31 +162,70 @@ class Tool_To_Be_Downloaded():
                 except Exception as error:
                     print("Error - Error parsing  " + str(self.dl_url) + " : ")
                     print(str(error))
+
+
+            # Download github latest release (without "latest" tag) :
+            
+            
+            elif re.match("https://github.com/.*/releases$",self.dl_url,re.IGNORECASE):
+            
+                try:
+                    req = urllib.request.Request(self.dl_url)
+                    resp = urllib.request.urlopen(req)
+                    resp_data = resp.read()
+                    
+                    release_files = re.findall('href="(/[^"]+/archive/[^"]+\.zip)\"',str(resp_data))
+                    release_file = "https://github.com" + str(release_files[0])
+                    
+                    release_destination_file = self.tool_folder / pathlib.Path(release_file).name
+                    
+                    try:
+                        urllib.request.urlretrieve(release_file,release_destination_file)
+                    except Exception as error:
+                        print("Error - Error downloading release archive " + str(release_file) + " : ")
+                        print(str(error))
+                    
+                except Exception as error:
+                    print("Error - Error parsing  " + str(self.dl_url) + " : ")
+                    print(str(error))           
+            
             
             
             # download link without file name
             
             
             elif re.match("^.*/.*\?.*=.*$|^.*package.Malzilla%20",self.dl_url,re.IGNORECASE):
-                               
+#                print("in link")                   
                 self.destination_file = self.tool_folder / self.name
                 
                 try:                      
-                    urllib.request.urlretrieve(self.dl_url,self.destination_file)
                     
-                    if (self.destination_file).exists():
-                        with open(self.destination_file,'rb') as destination_file_hdl:
-                            destination_file_header = destination_file_hdl.read(10)
-                        
-                        destination_file_hdl.close()
+                    # le lien pointe vers un fichier avec extension :
+                     
+                    if re.match("^.*\.(pl|ps1|vbs|exe|py)$",self.dl_url,re.IGNORECASE):
+#                        print("in pl")                       
+                        file_suffix = pathlib.Path(self.dl_url).suffix
+#                        print(file_suffix)
+                        self.destination_file = str(self.destination_file) + file_suffix
+                        urllib.request.urlretrieve(self.dl_url,self.destination_file)
+                             
+                     
+                    # le lien pointe vers un contenu  sans extension :
+                    
+                    else: 
+                        urllib.request.urlretrieve(self.dl_url,self.destination_file)
+                    
+                        if (self.destination_file).exists():
+                            with open(self.destination_file,'rb') as destination_file_hdl:
+                                destination_file_header = destination_file_hdl.read(10)
+                                destination_file_hdl.close()
 
-                        if re.match(b"^MZ.*",destination_file_header):
-#                            os.rename(self.destination_file, self.destination_file + ".exe")
-                            (self.destination_file).rename(self.destination_file + ".exe")
+                            if re.match(b"^MZ.*",destination_file_header):
+                                self.destination_file = self.destination_file + ".exel"
+#                            (self.destination_file).rename(self.destination_file + ".exe")
                         
-                        elif re.match(b"^PK.*",destination_file_header):
-#                            os.rename(self.destination_file, self.destination_file + ".zip")
-                            (self.destination_file).rename(self.destination_file + ".zip")
+                            elif re.match(b"^PK.*",destination_file_header):
+                                (self.destination_file).rename(self.destination_file + ".zip")
 
                 except Exception as error:
                     print("Error - Error downloading " + str(self.dl_url) + " : ")
@@ -189,6 +235,7 @@ class Tool_To_Be_Downloaded():
             # Download classic .zip files :
             
             else:
+                
                 try :                      
                     urllib.request.urlretrieve(self.dl_url,self.destination_file)
                 except Exception as error:
@@ -199,6 +246,9 @@ class Tool_To_Be_Downloaded():
             print("Error - Error downloading " + str(self.dl_url) + " : ")
             print(str(error))
 
+
+## unzip
+            
 
     def unzip(self):
         """Uncompressing downloaded archives """
