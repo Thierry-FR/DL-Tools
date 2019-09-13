@@ -7,6 +7,25 @@
 
 # dl_tools : Easy forensic tools downloader (Windows)
 
+# Usage :
+#         dl_tools.py [-h] -t TOOL [-p PROXY]
+#
+#         Forensic tools easy downloader
+#
+#         optional arguments:
+#                            -h, --help            show this help message and exit
+#
+#                            -t TOOL, --tool TOOL
+#                             Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded
+#
+#                            -p PROXY, --proxy PROXY
+#                             Proxy informations : PROXY:PORT
+
+
+#         tools_list.csv :      List containing informations concerning downloadable programs
+#                               Name finishing with "_" indicates that a specific version will be downloaded. Link has to be updated when a newer version comes.         
+
+
 
 #########  RESSOURCES  #########
 
@@ -51,9 +70,8 @@ def redo_with_write(redo_func, path, err):
     """ Change file rights (readonly) so rmtree can work"""
     # Arguments: the function that failed, the path 
     # it failed on, and the error that occurred.
-   
+       
     path.chmod(S_IWRITE)
-    time.sleep(2)
     redo_func(path)
       
 if not (tools_folder).exists():    
@@ -108,6 +126,7 @@ class Tool_To_Be_Downloaded():
         
         if (self.tool_folder).exists():
             shutil.rmtree(self.tool_folder,onerror=redo_with_write)
+            time.sleep(1)
         
         (self.tool_folder).mkdir()
 
@@ -128,36 +147,55 @@ class Tool_To_Be_Downloaded():
             
             
             if re.match("https://api.github.com/repos/.*/releases/latest",self.dl_url,re.IGNORECASE):
+#                print(self.dl_url)
                 
                 try:
                     req = urllib.request.Request(self.dl_url)
                     resp = urllib.request.urlopen(req)
                     resp_data = resp.read()
+                   
+                   # "browser_download_url" exploitation
+                   
+                    release_files = re.findall('browser_download_url":"(https://github.com/[^"]+\.(?:exe|msi|zip))',str(resp_data))
                     
-                    release_files = re.findall(r'browser_download_url":"(https://github.com/[^"]+\.zip)',str(resp_data))
+                    if release_files:
+#                        print(release_files)
                     
-                    if not release_files:
-#                        print("in zipball")
-                        release_files = re.findall(r'zipball_url":"(https://api.github.com/repos/[^"]+/zipball/[^"]+)"',str(resp_data))
-                    
-                    for release_file in release_files:
-#                        print(release_file)
-                        release_file_name = (pathlib.Path(release_file)).name
-#                        print(release_file_name)
-                        
-                        # Releases without archive name :
-                        
-                        if not release_file_name.endswith(".zip"):
-                            release_file_name = release_file_name + ".zip"
-                            release_destination_file = self.tool_folder / release_file_name
-                        else:
-                            release_destination_file = self.tool_folder / release_file_name
+                        for release_file in release_files:
+#                            print(release_file)
+                            release_file_name = (pathlib.Path(release_file)).name
+#                            print(release_file_name)
                             
-                        try:
-                            urllib.request.urlretrieve(release_file,release_destination_file)
-                        except Exception as error:
-                            print("Error - Error downloading release archive " + str(release_file) + " : ")
-                            print(str(error))
+                            release_destination_file = self.tool_folder / release_file_name
+#                            print(release_destination_file)
+                    
+                            try:
+                                urllib.request.urlretrieve(release_file,release_destination_file)
+                            except Exception as error:
+                                print("Error - Error downloading release file " + str(release_file) + " : ")
+                                print(str(error))
+
+                    # "zipball" exploitation
+                    
+                    else:
+                        release_files = re.findall(r'zipball_url":"(https://api.github.com/repos/[^"]+/zipball/[^"]+)"',str(resp_data))
+                                        
+                        for release_file in release_files:
+#                            print(release_file)
+                            release_file_name = (pathlib.Path(release_file)).name
+#                            print(release_file_name)
+                        
+                            # Releases without archive name :
+                        
+                            if not release_file_name.endswith(".zip"):
+                                release_file_name = str(release_file_name) + ".zip"
+                                release_destination_file = self.tool_folder / release_file_name
+                            
+                            try:
+                                urllib.request.urlretrieve(release_file,release_destination_file)
+                            except Exception as error:
+                                print("Error - Error downloading release archive " + str(release_file) + " : ")
+                                print(str(error))
                     
                 except Exception as error:
                     print("Error - Error parsing  " + str(self.dl_url) + " : ")
@@ -195,7 +233,7 @@ class Tool_To_Be_Downloaded():
             
             
             elif re.match("^.*/.*\?.*=.*$|^.*package.Malzilla%20",self.dl_url,re.IGNORECASE):
-#                print("in link")                   
+                   
                 self.destination_file = self.tool_folder / self.name
                 
                 try:                      
@@ -203,14 +241,14 @@ class Tool_To_Be_Downloaded():
                     # le lien pointe vers un fichier avec extension :
                      
                     if re.match("^.*\.(pl|ps1|vbs|exe|py)$",self.dl_url,re.IGNORECASE):
-#                        print("in pl")                       
+                      
                         file_suffix = pathlib.Path(self.dl_url).suffix
-#                        print(file_suffix)
+
                         self.destination_file = str(self.destination_file) + file_suffix
                         urllib.request.urlretrieve(self.dl_url,self.destination_file)
                              
                      
-                    # le lien pointe vers un contenu  sans extension :
+                    # le lien pointe vers un contenu sans extension :
                     
                     else: 
                         urllib.request.urlretrieve(self.dl_url,self.destination_file)
@@ -221,11 +259,10 @@ class Tool_To_Be_Downloaded():
                                 destination_file_hdl.close()
 
                             if re.match(b"^MZ.*",destination_file_header):
-                                self.destination_file = self.destination_file + ".exel"
-#                            (self.destination_file).rename(self.destination_file + ".exe")
+                                (self.destination_file).rename(str(self.destination_file) + ".exe")
                         
                             elif re.match(b"^PK.*",destination_file_header):
-                                (self.destination_file).rename(self.destination_file + ".zip")
+                                (self.destination_file).rename(str(self.destination_file) + ".zip")
 
                 except Exception as error:
                     print("Error - Error downloading " + str(self.dl_url) + " : ")
@@ -254,14 +291,20 @@ class Tool_To_Be_Downloaded():
         """Uncompressing downloaded archives """
         
         zip_files = (self.tool_folder).glob('*.zip')
-
+        
+        if len(list(zip_files)) > 0:
+            print("\tExtracting...")
+            zip_files = (self.tool_folder).glob('*.zip') #
+            
         for zip in zip_files:
             if (zip).is_file():
-                print("\tExtracting...")
+#                print(zip)
+                extract_folder = self.tool_folder / zip.stem
+                
                 try:
                     with zipfile.ZipFile(zip, 'r') as zip_archive:
-                        zip_archive.extractall(self.tool_folder)
-
+                        zip_archive.extractall(extract_folder)
+                        
                 except Exception as error:
                     print("Error - Error unzipping " + str(zip) + " :" )
                     print(str(error))

@@ -168,3 +168,5 @@ volatility_community;ram;volatility;https://github.com/volatilityfoundation/comm
 volatility_profiles;ram;volatility;https://github.com/volatilityfoundation/profiles/archive/master.zip
 memProcFs;ram;ufrisk;https://github.com/ufrisk/MemProcFS/archive/master.zip
 memProcFs_release;ram;ufrisk;https://api.github.com/repos/ufrisk/MemProcFS/releases/latest
+Velociraptor;collect;Velocidex;https://github.com/Velocidex/velociraptor/archive/master.zip
+Velociraptor_release;collect;Velocidex;https://api.github.com/repos/Velocidex/velociraptor/releases/latest
