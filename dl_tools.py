@@ -5,7 +5,7 @@
 #########  DESCRIPTION  #########
 
 
-# dl_tools : Easy forensic tools downloader (Windows)
+# dl_tools : Easy forensic tools downloader for Windows
 
 # Usage :
 #         dl_tools.py [-h] -t TOOL [-p PROXY]
@@ -22,9 +22,9 @@
 #                             Proxy informations : PROXY:PORT
 
 
-#         tools_list.csv :      List containing informations concerning downloadable programs
-#                               Name finishing with "_" indicates that a specific version will be downloaded. Link has to be updated when a newer version comes.         
-
+#         tools_list.csv :   List containing informations concerning downloadable programs
+#                            Names finishing with "_" indicates that a specific version will be downloaded. Link has to be updated when a newer version comes.         
+#                            Names finishing with "_release" indicates that the latest release of the Github repository will be downloaded
 
 
 #########  RESSOURCES  #########
@@ -56,14 +56,14 @@ import time
 #########  INIT  #########
 
 
-## variables
+## Variables
 
 script_folder = pathlib.Path.cwd()
 tools_folder = script_folder / "tools"
 tools_list = script_folder / "tools_list.csv"
 
 
-## checking files
+## Checking files
 
 
 def redo_with_write(redo_func, path, err):
@@ -89,9 +89,6 @@ parser.add_argument("-t", "--tool", help="Tools matching the pattern (regex) in 
 parser.add_argument("-p", "--proxy", help="Proxy informations : PROXY:PORT")
 args=parser.parse_args()
 
-
-#########  VARIABLES  #########
-
     
 #########  CLASSES  #########
 
@@ -111,7 +108,7 @@ class Tool_To_Be_Downloaded():
         self.destination_file = self.tool_folder / self.filename
         
 
-## Download
+    ## Download
 
 
     def download_tool(self):
@@ -122,7 +119,7 @@ class Tool_To_Be_Downloaded():
         if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)):
             ssl._create_default_https_context = ssl._create_unverified_context        
         
-        # deleting/creating tool folder :
+        # Deleting/creating tool folder :
         
         if (self.tool_folder).exists():
             shutil.rmtree(self.tool_folder,onerror=redo_with_write)
@@ -229,7 +226,7 @@ class Tool_To_Be_Downloaded():
             
             
             
-            # download link without file name
+            # Download link without file name
             
             
             elif re.match("^.*/.*\?.*=.*$|^.*package.Malzilla%20",self.dl_url,re.IGNORECASE):
@@ -238,7 +235,7 @@ class Tool_To_Be_Downloaded():
                 
                 try:                      
                     
-                    # le lien pointe vers un fichier avec extension :
+                    # Link targets a file with extension :
                      
                     if re.match("^.*\.(pl|ps1|vbs|exe|py)$",self.dl_url,re.IGNORECASE):
                       
@@ -248,7 +245,7 @@ class Tool_To_Be_Downloaded():
                         urllib.request.urlretrieve(self.dl_url,self.destination_file)
                              
                      
-                    # le lien pointe vers un contenu sans extension :
+                    # Link targets a file without extension :
                     
                     else: 
                         urllib.request.urlretrieve(self.dl_url,self.destination_file)
@@ -269,7 +266,7 @@ class Tool_To_Be_Downloaded():
                     print(str(error))
                           
             
-            # Download classic .zip files :
+            # Download classic ".zip" files :
             
             else:
                 
@@ -284,7 +281,7 @@ class Tool_To_Be_Downloaded():
             print(str(error))
 
 
-## unzip
+    ## Unzip downloaded archives
             
 
     def unzip(self):
