@@ -84,7 +84,7 @@ if not (tools_list).is_file():
 #########  ARGUMENTS #########
 
 
-parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epilog="Done by Thierry G. - Version : 0.1\n\n")
+parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epilog="Thierry G. - Version : 0.1\n\n\n")
 parser.add_argument("-t", "--tool", help="Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded", required=True)
 parser.add_argument("-p", "--proxy", help="Proxy informations : PROXY:PORT")
 args=parser.parse_args()
@@ -144,7 +144,6 @@ class Tool_To_Be_Downloaded():
             
             
             if re.match("https://api.github.com/repos/.*/releases/latest",self.dl_url,re.IGNORECASE):
-#                print(self.dl_url)
                 
                 try:
                     req = urllib.request.Request(self.dl_url)
@@ -156,15 +155,10 @@ class Tool_To_Be_Downloaded():
                     release_files = re.findall('browser_download_url":"(https://github.com/[^"]+\.(?:exe|msi|zip))',str(resp_data))
                     
                     if release_files:
-#                        print(release_files)
                     
                         for release_file in release_files:
-#                            print(release_file)
                             release_file_name = (pathlib.Path(release_file)).name
-#                            print(release_file_name)
-                            
                             release_destination_file = self.tool_folder / release_file_name
-#                            print(release_destination_file)
                     
                             try:
                                 urllib.request.urlretrieve(release_file,release_destination_file)
@@ -178,9 +172,7 @@ class Tool_To_Be_Downloaded():
                         release_files = re.findall(r'zipball_url":"(https://api.github.com/repos/[^"]+/zipball/[^"]+)"',str(resp_data))
                                         
                         for release_file in release_files:
-#                            print(release_file)
                             release_file_name = (pathlib.Path(release_file)).name
-#                            print(release_file_name)
                         
                             # Releases without archive name :
                         
@@ -291,11 +283,10 @@ class Tool_To_Be_Downloaded():
         
         if len(list(zip_files)) > 0:
             print("\tExtracting...")
-            zip_files = (self.tool_folder).glob('*.zip') #
+            zip_files = (self.tool_folder).glob('*.zip') 
             
         for zip in zip_files:
             if (zip).is_file():
-#                print(zip)
                 extract_folder = self.tool_folder / zip.stem
                 
                 try:
