@@ -1,7 +1,7 @@
 # dl_tools : Easy forensic tools downloader for Windows
 
 Usage :
-         dl_tools.py/dl_tools.exe [-h] -t TOOL [-p PROXY]
+         dl_tools.py / dl_tools.exe [-h] -t TOOL [-dr] [-p PROXY]
 
          Forensic tools easy downloader
 
