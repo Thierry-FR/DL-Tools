@@ -27,17 +27,6 @@
 #                            Names finishing with "_release" indicates that the latest release of the Github repository will be downloaded
 
 
-#########  RESSOURCES  #########
-
-
-# https://pythonprogramming.net/parse-website-using-regular-expressions-urllib/
-# https://realpython.com/read-write-files-python/#buffered-binary-file-types
-# https://treyhunner.com/2018/12/why-you-should-be-using-pathlib/
-# https://medium.com/@ageitgey/python-3-quick-tip-the-easy-way-to-deal-with-file-paths-on-windows-mac-and-linux-11a072b58d5f
-# http://zetcode.com/python/pathlib/
-# https://pbpython.com/pathlib-intro.html
-# https://docs.python.org/fr/3.8/library/pathlib.html
-
 
 #########  IMPORTS  #########
 
@@ -167,6 +156,7 @@ class Tool_To_Be_Downloaded():
                                 print("Error - Error downloading release file " + str(release_file) + " : ")
                                 print(str(error))
 
+
                     # "zipball" exploitation
                     
                     else:
@@ -193,8 +183,7 @@ class Tool_To_Be_Downloaded():
 
 
             # Download github latest release (without "latest" tag) :
-            
-            
+                       
             elif re.match("https://github.com/.*/releases$",self.dl_url,re.IGNORECASE):
             
                 try:
@@ -216,12 +205,10 @@ class Tool_To_Be_Downloaded():
                 except Exception as error:
                     print("Error - Error parsing  " + str(self.dl_url) + " : ")
                     print(str(error))           
-            
-            
+                    
             
             # Download link without file name
-            
-            
+                     
             elif re.match("^.*/.*\?.*=.*$|^.*package.Malzilla%20",self.dl_url,re.IGNORECASE):
                    
                 self.destination_file = self.tool_folder / self.name
@@ -276,7 +263,6 @@ class Tool_To_Be_Downloaded():
 
     ## Unzip downloaded archives
             
-
     def unzip(self):
         """Uncompressing downloaded archives """
         
@@ -375,8 +361,7 @@ if args.tool:
     for f in final_list:
         
         if args.dryrun:
-            print("[+] " + str(f['name']) + "-" + str(f['category']) )
-#            print(f)
+            print("[+] " + str(f['name']) + " - " + str(f['category']) )
     
         else:
             dl_this_file = Tool_To_Be_Downloaded(f['name'],f['editor'],f['category'],f['dl_url'])
