@@ -86,6 +86,7 @@ if not (tools_list).is_file():
 
 parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epilog="Thierry G. - Version : 0.1\n\n\n")
 parser.add_argument("-t", "--tool", help="Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded", required=True)
+parser.add_argument("-dr", "--dryrun", help="Print matching lines in 'tools_list.csv'", action="store_true")
 parser.add_argument("-p", "--proxy", help="Proxy informations : PROXY:PORT")
 args=parser.parse_args()
 
@@ -367,11 +368,21 @@ if args.tool:
     tool_arg_list = []
     final_list = generate_tools_list_dict(tool_arg_list,args.tool)
     
+    if not final_list:
+            print("\nSorry, no tool matches your regex !\n")
+            exit
+        
     for f in final_list:
-        dl_this_file = Tool_To_Be_Downloaded(f['name'],f['editor'],f['category'],f['dl_url'])
-        print("\n[+] " + str(f['name']))
-        dl_this_file.download_tool()
-        dl_this_file.unzip()
+        
+        if args.dryrun:
+            print("[+] " + str(f['name']) + "-" + str(f['category']) )
+#            print(f)
+    
+        else:
+            dl_this_file = Tool_To_Be_Downloaded(f['name'],f['editor'],f['category'],f['dl_url'])
+            print("\n[+] " + str(f['name']))
+            dl_this_file.download_tool()
+            dl_this_file.unzip()
             
 
 print("\n\nThe End !\n")

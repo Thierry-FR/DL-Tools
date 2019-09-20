@@ -95,6 +95,8 @@ NTFS_Log_Tracker;filesystem;Blueangel;https://sites.google.com/site/forensicnote
 NtfsFileExtractor;filesystem;jschicht;https://github.com/jschicht/NtfsFileExtractor/archive/master.zip
 OfficeIns;mail;nirsoft;https://www.nirsoft.net/utils/officeins.zip
 OpenedFilesView;user_activity;nirsoft;https://www.nirsoft.net/utils/ofview.zip
+Osquery;Suite;osquery;https://github.com/osquery/osquery/archive/master.zip
+Osquery_release;Suite;osquery;https://api.github.com/repos/osquery/osquery/releases/latest
 OutlookAddressBookView;mail;nirsoft;https://www.nirsoft.net/utils/outlookaddressbookview.zip
 OutlookAttachView;mail;nirsoft;https://www.nirsoft.net/utils/outlookattachview.zip
 PE_Carver;file_analysis;Rurik;https://github.com/Rurik/PE_Carver/archive/master.zip
@@ -102,6 +104,7 @@ Pecluster;malware;hexacorn;http://hexacorn.com/download.php?f=PECluester.pl
 PECmd;execution;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/PECmd.zip
 Plaso;timeline;log2timeline;https://github.com/log2timeline/plaso/archive/master.zip
 Plaso_release;timeline;log2timeline;https://api.github.com/repos/log2timeline/plaso/releases/latest
+Powershell-IR-Scripts;collecte;Jrotenberger;https://github.com/Jrotenberger/Powershell-IR-Scripts/archive/master.zip
 Process_hacker;system_activity;Wen_Jia_Liu ;https://github.com/processhacker/processhacker/archive/master.zip
 Process_hacker_release;system_activity;Wen_Jia_Liu ;https://api.github.com/repos/processhacker/processhacker/releases/latest
 ProduKey;registry;nirsoft;https://www.nirsoft.net/utils/produkey.zip
@@ -144,6 +147,7 @@ TimeCraver;carving;hexacorn;http://www.hexacorn.com/tools/TimeCraver.pl
 TimelineExplorer;timeline;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/TimelineExplorer.zip
 TurnedOnTimesView;system;nirsoft;https://www.nirsoft.net/utils/turnedontimesview.zip
 UninstallView;registry;nirsoft;https://www.nirsoft.net/utils/uninstallview.zip
+usb_investigator;USB,Events;tokesr;https://github.com/tokesr/usb_investigator/archive/master.zip
 UsbDeviceForensics;registry;woanware;https://github.com/woanware/usbdeviceforensics/archive/master.zip
 UsbDeviceForensics_release;registry;woanware;https://api.github.com/repos/woanware/usbdeviceforensics/releases/latest
 USBDeview;system;nirsoft;https://www.nirsoft.net/utils/usbdeview.zip
