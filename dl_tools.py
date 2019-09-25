@@ -73,7 +73,7 @@ if not (tools_list).is_file():
 #########  ARGUMENTS #########
 
 
-parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epilog="Thierry G. - Version : 0.1\n\n\n")
+parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epilog="Thierry-FR - Version : 0.1\n\n\n")
 parser.add_argument("-t", "--tool", help="Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded", required=True)
 parser.add_argument("-dr", "--dryrun", help="Print matching lines in 'tools_list.csv'", action="store_true")
 parser.add_argument("-p", "--proxy", help="Proxy informations : PROXY:PORT")
@@ -303,7 +303,7 @@ def print_title():
  
 def print_version():
     print()
-    print("\t\t\t\t\t\tv0.1 - T.G.")
+    print("\t\t\t\t\t\tv0.1 - Thierry-FR")
     print("\n")
 
     
@@ -351,23 +351,22 @@ if args.tool:
     if args.tool in ("All","all","ALL") :
         args.tool = ".*"
         
-    tool_arg_list = []
+    tool_arg_list = list()
     final_list = generate_tools_list_dict(tool_arg_list,args.tool)
     
     if not final_list:
-            print("\nSorry, no tool matches your regex !\n")
-            exit
+        print("\nSorry, no tool matches your regex !\n")
+    else:    
+        for f in final_list:
         
-    for f in final_list:
-        
-        if args.dryrun:
-            print("[+] " + str(f['name']) + " - " + str(f['category']) )
+            if args.dryrun:
+                print("[+] " + str(f['name']) + " - " + str(f['category']))
     
-        else:
-            dl_this_file = Tool_To_Be_Downloaded(f['name'],f['editor'],f['category'],f['dl_url'])
-            print("\n[+] " + str(f['name']))
-            dl_this_file.download_tool()
-            dl_this_file.unzip()
+            else:
+                dl_this_file = Tool_To_Be_Downloaded(f['name'],f['editor'],f['category'],f['dl_url'])
+                print("\n[+] " + str(f['name']))
+                dl_this_file.download_tool()
+                dl_this_file.unzip()
             
 
 print("\n\nThe End !\n")
