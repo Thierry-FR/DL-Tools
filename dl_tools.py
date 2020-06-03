@@ -40,6 +40,7 @@ import zipfile
 import ssl
 import pathlib
 import time
+import sys
 
 
 #########  INIT  #########
@@ -67,7 +68,8 @@ if not (tools_folder).exists():
     (tools_folder).mkdir()
 
 if not (tools_list).is_file():    
-    print("Error - File 'tools_list.csv' not found !")
+    print("\nError - File 'tools_list.csv' not found !\n")
+    sys.exit()
    
     
 #########  ARGUMENTS #########
@@ -77,6 +79,7 @@ parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epil
 parser.add_argument("-t", "--tool", help="Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded", required=True)
 parser.add_argument("-dr", "--dryrun", help="Print matching lines in 'tools_list.csv'", action="store_true")
 parser.add_argument("-p", "--proxy", help="Proxy informations : PROXY:PORT")
+parser.add_argument("-n", "--newonly", help="Download tool only if tool folder doesn't exist", action="store_true")
 args=parser.parse_args()
 
     
@@ -104,7 +107,7 @@ class Tool_To_Be_Downloaded():
     def download_tool(self):
         """ Downloading the tool in destination folder"""
         
-        # Not verfied SSL error workaround :
+        # "Not verfied SSL error" workaround :
         
         if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)):
             ssl._create_default_https_context = ssl._create_unverified_context        
@@ -207,7 +210,7 @@ class Tool_To_Be_Downloaded():
                     print(str(error))           
                     
             
-            # Download link without file name
+            # Download link without file name or Malzilla
                      
             elif re.match("^.*/.*\?.*=.*$|^.*package.Malzilla%20",self.dl_url,re.IGNORECASE):
                    
