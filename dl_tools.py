@@ -16,15 +16,21 @@
 #                            -h, --help            show this help message and exit
 #
 #                            -t TOOL, --tool TOOL
-#                             Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded
+#                             Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded. Patterns can be seperated by ",".
+#
+#                            -dr, --dryrun
+#                            Print matching lines in 'tools_list.csv'
 #
 #                            -p PROXY, --proxy PROXY
 #                             Proxy informations : PROXY:PORT
+#                                
+#                            -n, --newonly
+#                            Download tool only if tool folder doesn't exist in "tools" folder
 
-
-#         tools_list.csv :   List containing informations concerning downloadable programs
+#         tools_list.csv :   List containing informations concerning downloadable programs.
 #                            Names finishing with "_" indicates that a specific version will be downloaded. Link has to be updated when a newer version comes.         
-#                            Names finishing with "_release" indicates that the latest release of the Github repository will be downloaded
+#                            Names finishing with "_release" indicates that the latest release of the Github repository will be downloaded.
+#                            Lines beginning with "# or #" will not be taken into account.  
 
 
 
@@ -79,7 +85,7 @@ parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epil
 parser.add_argument("-t", "--tool", help="Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded", required=True)
 parser.add_argument("-dr", "--dryrun", help="Print matching lines in 'tools_list.csv'", action="store_true")
 parser.add_argument("-p", "--proxy", help="Proxy informations : PROXY:PORT")
-parser.add_argument("-n", "--newonly", help="Download tool only if tool folder doesn't exist", action="store_true")
+#parser.add_argument("-n", "--newonly", help="Download tool only if tool folder doesn't exist", action="store_true")
 args=parser.parse_args()
 
     
@@ -311,33 +317,38 @@ def print_version():
 
     
 
-def generate_tools_list_dict(list_name,pattern):
+def generate_tools_list_dict(list_name,tools_pattern):
     """Parsing the 'tools_list.csv' file to return a list containing dictionary items generated from lines matching the pattern"""
     
     with open(tools_list) as hdl_tools_list:
         lines = hdl_tools_list.readlines()
-    
+
+    separated_patterns= list()
+    separated_patterns = tools_pattern.split(',')
+
     list_name = []
     
     for line in lines:
         
-        if not re.match("^Name.*URL$", line):
+        if not re.match("^(\")?Name.*URL(\")?$|^(\")?#", line):
+             
+            for pattern in separated_patterns:
+             
+                if re.findall(pattern,line,re.IGNORECASE):
 
-            if re.findall(pattern,line,re.IGNORECASE):
-
-                new_file_to_download = {
-                    'name' : line.split(";")[0],
-                    'category' : line.split(";")[1],
-                    'editor' : line.split(";")[2],
-                    'dl_url' : (line.split(";")[3]).strip(),
+                    new_file_to_download = {
+                        'name' : (line.split(";")[0]).strip('"'),
+                        'category' : (line.split(";")[1]).strip('"'),
+                        'editor' : (line.split(";")[2]).strip('"'),
+                        'dl_url' : ((line.split(";")[3]).strip("\n")).strip('"'),    ## remove "/n" and '"'
                     }
-                list_name.append(new_file_to_download)
+                    
+                    list_name.append(new_file_to_download)
         
     hdl_tools_list.close()
         
     return list_name
     
-
     
 #########  MAIN  #########
 
@@ -351,7 +362,7 @@ print_version()
 
 if args.tool:
 
-    if args.tool in ("All","all","ALL") :
+    if args.tool in ("All","all","ALL","*") :
         args.tool = ".*"
         
     tool_arg_list = list()
@@ -361,10 +372,12 @@ if args.tool:
         print("\nSorry, no tool matches your regex !\n")
     else:    
         for f in final_list:
+            
+           # print(f)
         
             if args.dryrun:
                 print("[+] " + str(f['name']) + " - " + str(f['category']))
-    
+            
             else:
                 dl_this_file = Tool_To_Be_Downloaded(f['name'],f['editor'],f['category'],f['dl_url'])
                 print("\n[+] " + str(f['name']))
