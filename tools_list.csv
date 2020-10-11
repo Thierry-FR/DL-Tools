@@ -136,6 +136,7 @@
 "PECmd";"execution";"zimmerman";"https://f001.backblazeb2.com/file/EricZimmermanTools/PECmd.zip"
 "Plaso";"timeline";"log2timeline";"https://github.com/log2timeline/plaso/archive/master.zip"
 "Plaso_release";"timeline";"log2timeline";"https://api.github.com/repos/log2timeline/plaso/releases/latest"
+"Plaso_l2tbinaries";"timeline";"log2timeline";"https://github.com/log2timeline/l2tbinaries/archive/master.zip"
 "PowerForensics";"suite";"Invoke-IR";"https://github.com/Invoke-IR/PowerForensics/archive/master.zip"
 "Powershell-IR-Scripts";"collecte";"Jrotenberger";"https://github.com/Jrotenberger/Powershell-IR-Scripts/archive/master.zip"
 "Process_hacker";"system_activity";"Wen_Jia_Liu ";"https://github.com/processhacker/processhacker/archive/master.zip"
