@@ -113,7 +113,7 @@ class Tool_To_Be_Downloaded():
     def download_tool(self):
         """ Downloading the tool in destination folder"""
         
-        # "Not verfied SSL error" workaround :
+        # "Not verified SSL error" workaround :
         
         if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)):
             ssl._create_default_https_context = ssl._create_unverified_context        
@@ -264,6 +264,7 @@ class Tool_To_Be_Downloaded():
                 except Exception as error:
                     print("Error - Error downloading " + str(self.dl_url) + " : ")
                     print(str(error))
+                    print(str("Downloading issue may occures when contacted server is busy. Please try again."))
 
         except Exception as error:
             print("Error - Error downloading " + str(self.dl_url) + " : ")
@@ -292,6 +293,7 @@ class Tool_To_Be_Downloaded():
                 except Exception as error:
                     print("Error - Error unzipping " + str(zip) + " :" )
                     print(str(error))
+                    print(str("Unzipping issue might be consecutive to AV detection."))
             else:
                 print("Error - Error unzipping : file " + str(zip) + " not found !" )
 

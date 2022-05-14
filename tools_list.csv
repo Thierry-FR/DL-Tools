@@ -6,7 +6,7 @@ ADTimeline;ad;anssi;https://github.com/ANSSI-FR/ADTimeline/archive/master.zip
 AmcacheParser;execution;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/AmcacheParser.zip
 AnalyzeMFT;filesystem;dkovar;https://github.com/dkovar/analyzeMFT/archive/master.zip
 Android-forensics;mobile;nowsecure;https://github.com/nowsecure/android-forensics/archive/master.zip
-Apache_logs_viewer;logs;iannet;https://www.apacheviewer.com/download/
+Apache_logs_viewer / http_logs_viewer;logs;iannet;https://www.apacheviewer.com/httpLogsViewer.exe
 AppCompatCacheParser;execution;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/AppCompatCacheParser.zip
 Appid_calc;execution;hexacorn;http://www.hexacorn.com/tools/appid_calc.pl
 Autopsy;filesystem;Sleuthkit;https://github.com/sleuthkit/autopsy/archive/develop.zip
@@ -202,7 +202,7 @@ Velociraptor_release;collect;Velocidex;https://api.github.com/repos/Velocidex/ve
 Volatility;ram;volatility;https://github.com/volatilityfoundation/volatility/archive/master.zip
 Volatility_community;ram;volatility;https://github.com/volatilityfoundation/community/archive/master.zip
 Volatility_profiles;ram;volatility;https://github.com/volatilityfoundation/profiles/archive/master.zip
-Volatility_release;ram;volatility;https://github.com/volatilityfoundation/volatility/releases
+Volatility_release_;ram;volatility;https://github.com/volatilityfoundation/volatility/archive/refs/tags/2.6.1.zip
 Volatility3;ram;volatility;https://github.com/volatilityfoundation/volatility3/archive/master.zip
 Volatility3_release;ram;volatility;https://github.com/volatilityfoundation/volatility3/releases
 VSCMount;filesystem;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/VSCMount.zip
