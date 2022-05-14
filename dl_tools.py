@@ -81,7 +81,7 @@ if not (tools_list).is_file():
 #########  ARGUMENTS #########
 
 
-parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epilog="Thierry-FR - Version : 0.1\n\n\n")
+parser=argparse.ArgumentParser(description="Forensic tools easy downloader",epilog="Thierry-FR - Version : 0.1.1\n\n\n")
 parser.add_argument("-t", "--tool", help="Tools matching the pattern (regex) in 'tools_list.csv' will be downloaded", required=True)
 parser.add_argument("-dr", "--dryrun", help="Print matching lines in 'tools_list.csv'", action="store_true")
 parser.add_argument("-p", "--proxy", help="Proxy informations : PROXY:PORT")
@@ -314,7 +314,7 @@ def print_title():
  
 def print_version():
     print()
-    print("\t\t\t\t\t\tv0.1 - Thierry-FR")
+    print("\t\t\t\t\t\tv0.1.1 - Thierry-FR")
     print("\n")
 
     
