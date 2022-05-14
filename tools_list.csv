@@ -49,6 +49,7 @@ ETLParser;file_analysis;gcpartners;https://github.com/gcpartners/ETLParser/archi
 EventLogChannelsView;events;nirsoft;https://www.nirsoft.net/utils/eventlogchannelsview.zip
 Evolve;ram;JamesHabben;https://github.com/JamesHabben/evolve/archive/master.zip
 Evolve_release;ram;JamesHabben;https://api.github.com/repos/JamesHabben/evolve/releases/latest
+EvtxECmd;events;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/EvtxECmd.zip
 EvtXtract;events;ballenthin;https://github.com/williballenthin/EVTXtract/archive/master.zip
 EvtXtract_release;events;ballenthin;https://api.github.com/repos/williballenthin/EVTXtract/releases/latest
 Exe;malware;mitec;https://www.mitec.cz/Downloads/EXE.zip
@@ -59,6 +60,7 @@ ExtractFromDataRun;filesystem;jschicht;https://github.com/jschicht/ExtractFromDa
 ExtractUsnJrnl;filesystem;jschicht;https://github.com/jschicht/ExtractUsnJrnl/archive/master.zip
 ExtractUsnJrnl;filesystem;jschicht;https://github.com/jschicht/ExtractUsnJrnl/archive/master.zip
 EZViewer;file_analysis;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/EZViewer.zip
+EZViewer (.net 6);file_analysis;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/EZViewer.zip
 FARTprocess;collect;n3l5;https://github.com/n3l5/FARTprocess/archive/master.zip
 Find_times;carving;504ensicsLabs;https://github.com/504ensicsLabs/find_times/archive/master.zip
 FirefoxDownloadsView;browser;nirsoft;https://www.nirsoft.net/utils/firefoxdownloadsview.zip
@@ -112,6 +114,7 @@ Mft2Csv;filesystem;jschicht;https://github.com/jschicht/Mft2Csv/archive/master.z
 MftCarver;carving;jschicht;https://github.com/jschicht/MftCarver/archive/master.zip
 MFTECmd;filesystem;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/MFTECmd.zip
 MFTExplorer;filesystem;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/MFTExplorer.zip
+MFTExplorer (.net 6);filesystem;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/MFTExplorer.zip
 MftRcrd;filesystem;jschicht;https://github.com/jschicht/MftRcrd/archive/master.zip
 MyLastSearch;user_activity;nirsoft;https://www.nirsoft.net/utils/mylastsearch.zip
 MZCacheView;browser;nirsoft;https://www.nirsoft.net/utils/mozillacacheview.zip
@@ -138,6 +141,7 @@ Plaso_l2tbinaries;timeline;log2timeline;https://github.com/log2timeline/l2tbinar
 Plaso_release;timeline;log2timeline;https://api.github.com/repos/log2timeline/plaso/releases/latest
 PowerForensics;suite;Invoke-IR;https://github.com/Invoke-IR/PowerForensics/archive/master.zip
 Powershell-IR-Scripts;collecte;Jrotenberger;https://github.com/Jrotenberger/Powershell-IR-Scripts/archive/master.zip
+Prefetch_Parser;execution;markmckinnon;https://github.com/markmckinnon/Prefetch_Parser/archive/refs/heads/master.zip
 Process_hacker;system_activity;Wen_Jia_Liu ;https://github.com/processhacker/processhacker/archive/master.zip
 Process_hacker_release;system_activity;Wen_Jia_Liu ;https://api.github.com/repos/processhacker/processhacker/releases/latest
 ProduKey;registry;nirsoft;https://www.nirsoft.net/utils/produkey.zip
@@ -149,6 +153,7 @@ RawCopy;filesystem;jschicht;https://github.com/jschicht/RawCopy/archive/master.z
 RBCmd;user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/RBCmd.zip
 RcrdCarver;carving;jschicht;https://github.com/jschicht/RcrdCarver/archive/master.zip
 RecentFileCacheParser;execution;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/RecentFileCacheParser.zip
+RECmd;registry;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/RECmd.zip
 RecuperaBit;carving;andrea_lazzarotto;https://github.com/Lazza/RecuperaBit/archive/master.zip
 RecuperaBit_release;carving;andrea_lazzarotto;https://api.github.com/repos/Lazza/RecuperaBit/releases/latest
 RegDllView;system;nirsoft;https://www.nirsoft.net/utils/regdllview.zip
@@ -160,14 +165,19 @@ RegistryExplorer;registry;zimmerman;https://f001.backblazeb2.com/file/EricZimmer
 RegRipper;registry;carvey;https://github.com/keydet89/RegRipper3.0/archive/master.zip
 Resource_Hacker;file_analysis;angus_johnson;http://www.angusj.com/resourcehacker/resource_hacker.zip
 ResourcesExtract;malware;nirsoft;https://www.nirsoft.net/utils/resourcesextract.zip
+RLA;registry;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/rla.zip
+RP_Log_Tracker_;filesystem;Blueangel;https://drive.google.com/uc?id=1vHbTp_-Lx1ma0iC5e1TIwKtAOLsO4IeC&export=download
 SafariCacheView;browser;nirsoft;https://www.nirsoft.net/utils/safaricacheview.zip
 SafariHistoryView;browser;nirsoft;https://www.nirsoft.net/utils/safarihistoryview.zip
+SBECmd;user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SBECmd.zip
 SDBExplorer;execution;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SDBExplorer.zip
+SDBExplorer (.net 6);execution;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/SDBExplorer.zip
 SearchMyFiles;user_activity;nirsoft;https://www.nirsoft.net/utils/searchmyfiles.zip
 Secure2Csv;filesystem;jschicht;https://github.com/jschicht/Secure2Csv/archive/master.zip
 SetMace;filesystem;jschicht;https://github.com/jschicht/SetMace/archive/master.zip
 SetRegTime;registry;jschicht;https://github.com/jschicht/SetRegTime/archive/master.zip
 ShellBagsExplorer;user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/ShellBagsExplorer.zip
+ShellBagsExplorer (.net 6);user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/ShellBagsExplorer.zip
 ShimCacheParser;registry;mandiant;https://github.com/mandiant/ShimCacheParser/archive/master.zip
 SimpleProgramDebugger;malware;nirsoft;https://www.nirsoft.net/utils/simpleprogramdebugger.zip
 SimpleProgramDebuggerx64;malware;nirsoft;https://www.nirsoft.net/utils/simpleprogramdebugger-x64.zip
@@ -175,15 +185,19 @@ Sleuthkit;filesystem;Sleuthkit;https://github.com/sleuthkit/sleuthkit/archive/de
 Sleuthkit_release;filesystem;Sleuthkit;https://api.github.com/repos/sleuthkit/sleuthkit/releases/latest
 SmartSniff;network;nirsoft;https://www.nirsoft.net/utils/smsniff.zip
 SocketSniff;network;nirsoft;https://www.nirsoft.net/utils/socketsniff.zip
+SQLECmd;file_analysis;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SQLECmd.zip
 SQLite-Deleted-Records-Parser;carving;cheeky4n6monkey;https://github.com/cheeky4n6monkey/SQLite-Deleted-Records-Parser/archive/master.zip
 Srum-Dump;user_activity;baggett;https://github.com/MarkBaggett/srum-dump/archive/master.zip
+SrumECmd;user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SrumECmd.zip
 Structured_Storage_Viewer;file_analysis;mitec;https://www.mitec.cz/Downloads/SSView.zip
+SumECmd;user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SumECmd.zip
 Sysinternals;suite;micrososft;https://download.sysinternals.com/files/SysinternalsSuite.zip
 SysvolExplorer;ad;anssi;https://github.com/ANSSI-FR/SysvolExplorer/archive/master.zip
 TaskSchedulerView;persistence;nirsoft;https://www.nirsoft.net/utils/taskschedulerview.zip
 Testdisk_;carving;grenier;https://www.cgsecurity.org/testdisk-7.2-WIP.win.zip
 TimeCraver;carving;hexacorn;http://www.hexacorn.com/tools/TimeCraver.pl
 TimelineExplorer;timeline;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/TimelineExplorer.zip
+TimelineExplorer (.net 6);timeline;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/TimelineExplorer.zip
 Timesketch;timeline;google;https://github.com/google/timesketch/archive/master.zip
 Timesketch_release;timeline;google;https://api.github.com/repos/google/timesketch/releases/latest
 TurnedOnTimesView;system;nirsoft;https://www.nirsoft.net/utils/turnedontimesview.zip
@@ -222,16 +236,5 @@ XWFIM;suite;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/XWFIM
 Yaguard;ioc;novirusthanks;https://downloads.novirusthanks.org/files/yaguard.zip
 Yarp;filesystem;msuhanov;https://github.com/msuhanov/yarp/archive/master.zip
 Yarp_release;filesystem;msuhanov;https://api.github.com/repos/msuhanov/yarp/releases/latest
-EvtxECmd;events;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/EvtxECmd.zip
-EZViewer (.net 6);file_analysis;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/EZViewer.zip
-MFTExplorer (.net 6);filesystem;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/MFTExplorer.zip
-RECmd;registry;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/RECmd.zip
-RLA;registry;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/rla.zip
-SDBExplorer (.net 6);execution;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/SDBExplorer.zip
-SBECmd;user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SBECmd.zip
-ShellBagsExplorer (.net 6);user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/ShellBagsExplorer.zip
-SQLECmd;file_analysis;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SQLECmd.zip
-SrumECmd;user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SrumECmd.zip
-SumECmd;user_activity;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/SumECmd.zip
-TimelineExplorer (.net 6);timeline;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/net6/TimelineExplorer.zip
-RP_Log_Tracker_;filesystem;Blueangel;https://drive.google.com/uc?id=1vHbTp_-Lx1ma0iC5e1TIwKtAOLsO4IeC&export=download
+WinPrefetchView;execution;nirsoft;https://www.nirsoft.net/utils/winprefetchview.zip
+WinPrefetchViewx64;execution;nirsoft;https://www.nirsoft.net/utils/winprefetchview-x64.zip
