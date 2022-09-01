@@ -77,7 +77,7 @@ HAM;malware;hexacorn;http://hexacorn.com/download.php?f=ham.exe
 Hasher;file_analysis;zimmerman;https://f001.backblazeb2.com/file/EricZimmermanTools/hasher.zip
 HexEdit;file_analysis;mitec;https://www.mitec.cz/Downloads/HEXEdit.zip
 Hindsight;browser;Obsidian;https://github.com/obsidianforensics/hindsight/archive/master.zip
-Hindsight_release;user_activity;Obsidian;https://api.github.com/repos/obsidianforensics/hindsight/releases/latest
+Hindsight_release;browser;Obsidian;https://api.github.com/repos/obsidianforensics/hindsight/releases/latest
 HTTPNetworkSniffer;network;nirsoft;https://www.nirsoft.net/utils/httpnetworksniffer.zip
 Hxd;file_analysis;mh-nexus;https://mh-nexus.de/downloads/HxDPortableSetup.zip
 IECacheView;browser;nirsoft;https://www.nirsoft.net/utils/iecacheview.zip
